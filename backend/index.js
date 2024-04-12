@@ -4,11 +4,19 @@
 import express from "express" // This is new style like react  : This is module aproach
 import dotenv from "dotenv"
 import connectDB from "./config/database.js";
+import userRouter from "./routes/userRoute.js"
 dotenv.config({})
 
 const app = express()
 
 const PORT = process.env.PORT || 3000;
+
+//Middleware
+
+app.use(express.json())
+
+//User routes
+app.use("/api/users",userRouter)
 
 app.listen(PORT, () => {
     connectDB();
