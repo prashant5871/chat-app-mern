@@ -1,0 +1,6 @@
+body{
+  background: url("../public/chat-background.avif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
