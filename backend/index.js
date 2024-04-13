@@ -5,6 +5,7 @@ import express from "express" // This is new style like react  : This is module 
 import dotenv from "dotenv"
 import connectDB from "./config/database.js";
 import userRouter from "./routes/userRoute.js"
+import messageRouter from "./routes/messageRoute.js"
 import cookieParser from 'cookie-parser'
 dotenv.config({})
 
@@ -18,7 +19,8 @@ app.use(express.json())
 app.use(cookieParser())
 
 //User routes
-app.use("/api/users",userRouter)
+app.use("/api/users", userRouter)
+app.use("/api/message", messageRouter)
 
 app.listen(PORT, () => {
     connectDB();
