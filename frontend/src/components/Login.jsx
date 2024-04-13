@@ -1,14 +1,18 @@
 import React from 'react'
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setAuthUser } from '../redux/userSlice';
+
 const Login = () => {
     const [user, setUser] = useState({
         username: "",
         password: "",
     })
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -18,15 +22,17 @@ const Login = () => {
         e.preventDefault();
         console.log(user);
         try {
-            const res = await axios.post("http://localhost:3500/api/users/login",user,{
-                headers:{
-                    "Content-Type":"application/json"
+            const res = await axios.post("http://localhost:3500/api/users/login", user, {
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                withCredentials:true
+                withCredentials: true
 
             })
 
             navigate("/")
+            console.log(res);
+            dispatch(setAuthUser(res.data))
             toast.success("Login succesfully")
         } catch (error) {
             toast.error(error.response.data.message)
