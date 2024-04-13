@@ -5,6 +5,7 @@ import express from "express" // This is new style like react  : This is module 
 import dotenv from "dotenv"
 import connectDB from "./config/database.js";
 import userRouter from "./routes/userRoute.js"
+import cookieParser from 'cookie-parser'
 dotenv.config({})
 
 const app = express()
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 //Middleware
 
 app.use(express.json())
+app.use(cookieParser())
 
 //User routes
 app.use("/api/users",userRouter)

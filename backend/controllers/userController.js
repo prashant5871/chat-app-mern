@@ -85,11 +85,12 @@ export const login = async (req, res) => {
 
         }
 
-        const userData = {
+        const tokenData = {
             userId: user._id
         }
 
-        const token = jwt.sign(userData, process.env.JWT_SECRET_KEY, { expiresIn: "1d" })
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "1d" })
+        console.log(token);
 
         return res.cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' }).json({
             _id: user._id,
@@ -101,6 +102,24 @@ export const login = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+//Logout 
+export const logout = (req, res) => {
+    try {
+        return res.cookie("token", "", { maxAge: 0 }).json({
+            message: "Logged out succesfully"
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//Get all users except logged in user
+export const getOtherUsers = async (req, res) => {
+    const id = req.id
+    const otherUsers = await User.find({ _id: { $ne: id } }).select("-password");
+    return res.json(otherUsers)
 }
 
 //It is just for testing purpose
