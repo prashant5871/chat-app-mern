@@ -2,9 +2,23 @@ import React from 'react'
 import Messages from './Messages'
 import InputMessage from './InputMessage'
 import { useSelector } from 'react-redux'
+import { useRef,useEffect } from 'react'
 
 const MessageContainer = () => {
   const { selectedUser } = useSelector(state => state.user);
+  const {messages} = useSelector(state => state.messages); // Assuming you have a messages state in your Redux store
+
+  const messageContainerRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [selectedUser, messages]); // Update the dependency array
+
+  const scrollToBottom = () => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  };
 
   return (
     <div className='md:min-w-[550px] md:h-[80vh] text-white flex flex-col'>
@@ -22,7 +36,7 @@ const MessageContainer = () => {
           </div>
         </div>
 
-        <div className="overflow-auto h-full">
+        <div className="overflow-auto h-full" ref={messageContainerRef}>
           <Messages />
         </div>
 
