@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message = () => {
+const Message = ({message}) => {
     return (
         <div className='overflow-auto'>
             <div className="chat chat-end">
@@ -12,7 +12,7 @@ const Message = () => {
                 <div className="chat-header">
                     <time className="text-xs opacity-50">12:45</time>
                 </div>
-                <div className="chat-bubble">You were the Chosen One!</div>
+                <div className="chat-bubble">{message.message}</div>
             </div>
 
         </div>

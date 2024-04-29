@@ -30,8 +30,8 @@ const Login = () => {
 
             })
 
-            navigate("/")
-            console.log(res);
+            navigate("/home")
+            console.log("data after loign ",res);
             dispatch(setAuthUser(res.data))
             toast.success("Login succesfully")
         } catch (error) {

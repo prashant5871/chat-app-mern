@@ -8,11 +8,11 @@ import Login from './components/Login';
 const router = createBrowserRouter(
   [
     {
-      path:"/",
+      path:"/home",
       element:<HomePage/>
     },
     {
-      path:"/register",
+      path:"/",
       element:<Register/>
     },
     {
