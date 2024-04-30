@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 import OtherUsers from './OtherUsers';
 import axios from 'axios';
 import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedUser } from '../redux/userSlice';
+import { setSearchedUsers, setSelectedUser } from '../redux/userSlice';
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { authUser } = useSelector(state => state.user);
-  // const { selectedUser } = useSelector(state => state.user)
+  const [query, setQuery] = useState("");
+  // const { OtherUsers } = useSelector(state => state.user)
+  const { otherUsers } = useSelector(state=>state.user)
   useEffect(() => {
     console.log("auth user is : ", authUser);
   }, [authUser]);
@@ -35,13 +37,33 @@ const Sidebar = () => {
   //   console.log("Authenticated user is : ",authUser);
   // })
 
+  const handleChange = (event) => {
+    // console.log(event.target.value);
+    setQuery(event.target.value)
+    const searchedUsers = otherUsers.filter(user => user.fullName.toLowerCase().includes(query))
+    // console.log(searchedUsers);
+    if(event.target.value!=""){
+       dispatch(setSearchedUsers(searchedUsers))
+    }else{
+      dispatch(setSearchedUsers(null))
+    }
+  }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    // const searchedUsers = otherUsers.filter(user);
+    const searchedUsers = otherUsers.filter(user => user.fullName.toLowerCase().includes(query))
+    // console.log(searchedUsers);
+  }
+
+
   return (
     <div className='md:min-w-[300px] md:h-[80vh] text-white border-r flex flex-col'>
       <div className="search">
-        <form action="">
+        <form onSubmit={handleSearch} action='' method='POST'>
           <div className="input_container flex gap-3 justify-center items-center p-3">
 
-            <input type="text" placeholder="Search here..." className=" text-black input input-bordered input-primary input-sm w-full max-w-xs" />
+            <input value={query} onChange={handleChange} type="text" placeholder="Search here..." className=" text-black input input-bordered input-primary input-sm w-full max-w-xs" />
 
             <button className="btn btn-sm btn-active btn-neutral"><FaSearch /></button>
           </div>

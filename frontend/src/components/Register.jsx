@@ -31,7 +31,7 @@ const Register = () => {
             });
             console.log(res);
             if (res.data.success) {
-                navigate("/login")
+                navigate("/")
                 toast.success(res.data.message, {
                     position: 'top-right' // Position the toast at the top right corner
                 });
@@ -87,7 +87,7 @@ const Register = () => {
                     </div>
 
                     <div className="has-acount flex justify-center items-center">
-                        <p className='text-white'>Already have an account ? </p> <Link to="/login"><span className='text-blue-700'>Login here</span></Link>
+                        <p className='text-white'>Already have an account ? </p> <Link to="/"><span className='text-blue-700'>Login here</span></Link>
                     </div>
 
                     <button type='submit' className="btn btn-block mt-3">Sign Up</button>

@@ -10,8 +10,10 @@ const OtherUsers = () => {
     useGetOtherUsers();
 
 
-    const { otherUsers } = useSelector(state => state.user);
-    if (!otherUsers) return;
+    let { otherUsers,searchedUsers } = useSelector(state => state.user);
+    // if (!otherUsers) return;
+    if(searchedUsers) otherUsers = searchedUsers;
+    // console.log("searched users are : ",searchedUsers);
 
     return (
         <div className='overflow-auto'>

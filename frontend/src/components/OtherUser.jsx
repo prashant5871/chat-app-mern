@@ -18,6 +18,7 @@ const OtherUser = ({user}) => {
                 <div className="avatar online">
                     <div className="w-10 rounded-full">
                         <img src={user.profilePhoto} />
+                        {/* <img src="#" alt="image" /> */}
                     </div>
                 </div>
                 <div className="name-container">
